@@ -88,7 +88,7 @@ import java.util.Map.Entry;
 
 
                 // Receive messages.
-                System.out.println("Receiving messages from MyQueue.\n");
+                System.out.println("Receiving messages from A.\n");
                 final ReceiveMessageRequest receiveMessageRequest =
                         new ReceiveMessageRequest(queueA);
 
@@ -120,6 +120,73 @@ import java.util.Map.Entry;
                 final String messageReceiptHandle = messages.get(0).getReceiptHandle();
                 sqs.deleteMessage(new DeleteMessageRequest(queueA,
                         messageReceiptHandle));
+
+                // Queue B
+
+                System.out.println("Receiving messages from B.\n");
+                final ReceiveMessageRequest receiveMessageRequestB =
+                        new ReceiveMessageRequest(queueB);
+
+                final List<Message> messagesB = sqs.receiveMessage(receiveMessageRequestB)
+                        .getMessages();
+                for (final Message message : messagesB) {
+                    System.out.println("Message");
+                    System.out.println("  MessageId:     "
+                            + message.getMessageId());
+                    System.out.println("  ReceiptHandle: "
+                            + message.getReceiptHandle());
+                    System.out.println("  MD5OfBody:     "
+                            + message.getMD5OfBody());
+                    System.out.println("  Body:          "
+                            + message.getBody());
+                    for (final Entry<String, String> entry : message.getAttributes()
+                            .entrySet()) {
+                        System.out.println("Attribute");
+                        System.out.println("  Name:  " + entry
+                                .getKey());
+                        System.out.println("  Value: " + entry
+                                .getValue());
+                    }
+                }
+                System.out.println();
+
+                // Delete the message.
+//3
+
+                // queue C
+                System.out.println("Receiving messages from C.\n");
+                final ReceiveMessageRequest receiveMessageRequestC =
+                        new ReceiveMessageRequest(queueC);
+
+                final List<Message> messagesC = sqs.receiveMessage(receiveMessageRequestC)
+                        .getMessages();
+                for (final Message message : messagesC) {
+                    System.out.println("Message");
+                    System.out.println("  MessageId:     "
+                            + message.getMessageId());
+                    System.out.println("  ReceiptHandle: "
+                            + message.getReceiptHandle());
+                    System.out.println("  MD5OfBody:     "
+                            + message.getMD5OfBody());
+                    System.out.println("  Body:          "
+                            + message.getBody());
+                    for (final Entry<String, String> entry : message.getAttributes()
+                            .entrySet()) {
+                        System.out.println("Attribute");
+                        System.out.println("  Name:  " + entry
+                                .getKey());
+                        System.out.println("  Value: " + entry
+                                .getValue());
+                    }
+                }
+                System.out.println();
+
+                // Delete the message.
+//                System.out.println("Deleting a message.\n");
+//                final String messageReceiptHandleC = messages.get(0).getReceiptHandle();
+//                sqs.deleteMessage(new DeleteMessageRequest(queueC,
+//                        messageReceiptHandleC));
+
 //
 //                // Delete the queue.
 //                System.out.println("Deleting the test queue.\n");
