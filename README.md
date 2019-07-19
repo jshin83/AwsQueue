@@ -1,6 +1,6 @@
 # SQS
 
-Three queues (A, B, C) that receives their own messages.
+Three queues (A, B, C) that receive their own messages.
 
 ## How would I test?
 See if the size of queue changes after message sent. Loop through and see if the message is there after the time sent.
